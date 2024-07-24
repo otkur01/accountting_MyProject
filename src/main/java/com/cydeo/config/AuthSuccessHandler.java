@@ -19,16 +19,16 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        if(roles.contains("Admin")){
-            response.sendRedirect("/user/create");
+        if(roles.contains("Root User")){
+            response.sendRedirect("/companies/list");
         }
 
         if(roles.contains("Manager")){
-            response.sendRedirect("/task/create");
+            response.sendRedirect("/dashboard");
         }
 
-        if(roles.contains("Employee")){
-            response.sendRedirect("/task/employee/pending-tasks");
+        if(roles.contains("Admin")){
+            response.sendRedirect("users/list");
         }
 
     }

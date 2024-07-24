@@ -1,5 +1,6 @@
 package com.cydeo.entity.common;
 
+import com.cydeo.entity.BaseEntityListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @MappedSuperclass
+@EntityListeners(BaseEntityListener.class)
 public class BaseEntity implements Serializable {
 
     @Id
