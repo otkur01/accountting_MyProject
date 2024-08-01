@@ -210,7 +210,7 @@
                                                     <th scope="col">Total</th>
                                                 </tr>
                                             </thead>
-                                            <tbody th:if="${invoice != null}">
+                                            <tbody th:if = "${invoices != null}">
                                                 <tr th:each="invoice:${invoices}">
                                                     <td th:text="${invoice.invoiceNo}"></td>
                                                     <td th:text="${invoice.clientVendor.getClientVendorName}"></td>
@@ -218,8 +218,10 @@
                                                     <td th:text="${invoice.price}"></td>
                                                     <td th:text="${invoice.tax}"></td>
                                                     <td th:text="${invoice.total}"></td>
+
+
                                                 </tr>
-                                            </tbody>
+<!--                                            </tbody>-->
                                         </table>
                                     </div>
                                 </div>

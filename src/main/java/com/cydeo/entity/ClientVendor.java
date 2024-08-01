@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -23,8 +20,9 @@ public class ClientVendor extends BaseEntity {
   private   String clientVendorName;
     private  String phone;
     private  String website;
+  @Enumerated(EnumType.STRING)
     private ClientVendorType clientVendorType;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     @ManyToOne
     private  Company company ;

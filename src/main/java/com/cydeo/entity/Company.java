@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -22,7 +20,8 @@ public class Company extends BaseEntity {
     private   String title;
     private   String phone;
     private   String website;
+    @Enumerated(EnumType.STRING)
     private   CompanyStatus companyStatus ;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private   Address address;
 }

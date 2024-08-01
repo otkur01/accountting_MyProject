@@ -1,4 +1,4 @@
-package com.cydeo.entity.common;
+package com.cydeo.entity;
 
 import com.cydeo.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 public class UserPrincipal implements UserDetails {
 
-    private  User user;
+    private final User user;
+
 
     public UserPrincipal(User user) {
         this.user = user;
@@ -20,18 +22,24 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-
-        GrantedAuthority authority = new SimpleGrantedAuthority(this.user.getRole().getDescription());
-
+        List<GrantedAuthority> authorityList=new ArrayList<>();
+        GrantedAuthority authority=new SimpleGrantedAuthority(this.user.getRole().getDescription());
         authorityList.add(authority);
-
         return authorityList;
     }
 
+    public String getCompanyTitleForProfile() {
+        return this.user.getCompany().getTitle();
+    }
+
+    public String getFullNameForProfile(){
+        return this.user.getFirstname()+" "+this.user.getLastname();
+    }
+
+
     @Override
     public String getPassword() {
-        return this.user.getPassword();   //how i can acccess to password field of the user object
+        return this.user.getPassword();
     }
 
     @Override
@@ -62,13 +70,4 @@ public class UserPrincipal implements UserDetails {
     public Long getId(){
         return this.user.getId();
     }
-
-  public String getFullNameForProfile(){
-        return this.user.getFirstname()+" "+this.user.getLastname();
-  }
-
-  public String getCompanyTitleForProfile(){
-        return this.user.getCompany().getTitle();
-  }
-
 }
