@@ -36,7 +36,7 @@ public class DashboardController {
 
         model.addAttribute("summaryNumbers", summaryNumbers);
         model.addAttribute("invoices", invoices);
-        model.addAttribute("exchangeRates", dashboardService.exchangeForUsd());
+        model.addAttribute("exchangeRates", dashboardService.exchangeForUsd1());
 
         return "dashboard";
 

@@ -1,5 +1,6 @@
 package com.cydeo.service;
 
+import com.cydeo.annotation.ActiveDeActive;
 import com.cydeo.dto.CompanyDto;
 import com.cydeo.dto.UserDto;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface CompanyService {
 
-  Long getCompanyIdByLoggedInUser(UserDto user);
+//  Long getCompanyIdByLoggedInUser(UserDto user);
 
   List<CompanyDto> getAllCompany();
 
@@ -21,9 +22,14 @@ public interface CompanyService {
 
     CompanyDto update(CompanyDto companyDto);
 
-  void activeCompanyStatus(Long id);
 
-  void deactivateCompanyStatus(Long id);
+    CompanyDto activeCompanyStatus(Long id);
+
+
+    List<String>nameAllCountry();
+
+
+    CompanyDto deactivateCompanyStatus(Long id);
 
   boolean isTitleUnique(String title);
  // boolean isTitleUniqueForUpdate(String title);

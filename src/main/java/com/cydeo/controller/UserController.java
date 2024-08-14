@@ -1,5 +1,6 @@
 package com.cydeo.controller;
 
+import com.cydeo.annotation.ExecutionTime;
 import com.cydeo.dto.UserDto;
 import com.cydeo.service.CompanyService;
 import com.cydeo.service.RoleService;
@@ -32,6 +33,7 @@ public class UserController {
         this.securityService = securityService;
     }
 
+    @ExecutionTime
     @GetMapping("/list")
     public String getAllUsers(Model model){
         String role = securityService.getLoggedInUser().getRole().getDescription();
@@ -42,7 +44,7 @@ public class UserController {
         }
 
         else if(role.equals("Admin")) {
-            model.addAttribute("users",userService.getAllUserInCompany(securityService.getLoggedInUser().getId()));
+            model.addAttribute("users",userService.getAllUserInCompany(securityService.getLoggedInUser().getCompany().getId()));
             return "user/user-list";
         }
 //        model.addAttribute("users",userService.getAllUserOrderedByCompanyAndRole());
@@ -80,10 +82,30 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("newUser") UserDto userDto, BindingResult bindingResult){
+    public String createUser(@Valid @ModelAttribute("newUser") UserDto userDto, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()) {
+            model.addAttribute("newUser", userDto);
+            String role = securityService.getLoggedInUser().getRole().getDescription();
 
-            return "redirect:/users/create";
+            if(role.equals("Root User")){
+
+                model.addAttribute("userRoles",roleService.getAllRoles().stream()
+                        .filter(roleDto -> roleDto.getDescription().equals("Admin")).collect(Collectors.toList()));
+                model.addAttribute("companies", companyService.getAllCompany()
+                        .stream().filter(companyDto -> !companyDto.getTitle().equals("CYDEO")).collect(Collectors.toList()));
+
+
+            }
+
+            if(role.equals("Admin")) {
+                model.addAttribute("userRoles",roleService.getAllRoles().stream()
+                        .filter(roleDto -> ! roleDto.getDescription().equals("Root User")).collect(Collectors.toList()));                    ;
+                model.addAttribute("companies", companyService.getAllCompany()
+                        .stream().filter(companyDto -> companyDto.getTitle().equals(securityService.getLoggedInUser().getCompany().getTitle())).collect(Collectors.toList()));
+            }
+
+
+            return "/user/user-create";
         }
 
         userService.save(userDto);
@@ -103,7 +125,14 @@ public class UserController {
  }
 
  @PostMapping("/update/{id}")
-    public String updateUser(@ModelAttribute("newUser")UserDto userDto){
+    public String updateUser(@Valid@ModelAttribute("user")UserDto userDto, BindingResult bindingResult, Model model){
+       if (bindingResult.hasErrors()){
+           model.addAttribute("user", userDto);
+           model.addAttribute("userRoles", roleService.getAllRoles());
+           model.addAttribute("companies", companyService.getAllCompany());
+           return "/user/user-update";
+       }
+
         userService.updateUser(userDto);
      return "redirect:/users/list";
  }

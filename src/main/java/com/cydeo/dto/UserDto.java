@@ -28,6 +28,7 @@ public class UserDto {
     private String confirmPassword;
 
     @NotBlank(message = "First Name is required field.")
+    @NotNull(message = "First Name is required field.")
     @Size(min = 2, max = 50, message = "First Name must be between 2 and 50 characters long.")
     private String firstname;
 

@@ -109,12 +109,11 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllUserInCompany( Long id) {
         return userRepository.findAll().stream()
                 .filter(user -> user.getIsDeleted()==false)
+                .filter(user -> user.getCompany().getId().equals(id))
+                .filter(user -> !user.getId().equals(securityService.getLoggedInUser().getId()))
                 .map(user -> mapperUtil.convert(user,new UserDto()))
-                .filter(userDto -> userDto.getCompany().getId()==id)
-//                .map(userDto -> {
-//                    userDto.setOnlyAdmin(checkIftheAdminIsOnly(userDto.getId()));
-//                    return userDto;
-//                })
+//
+//
                 .collect(Collectors.toList());
     }
 

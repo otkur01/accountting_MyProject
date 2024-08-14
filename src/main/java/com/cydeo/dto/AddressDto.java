@@ -21,6 +21,7 @@ public class AddressDto {
     private   String addressLine1;
 
     @Size(max = 100, message = "Address should have maximum 100 characters long")
+    @NotBlank(message = "Address is required field")
     private   String addressLine2;
     @NotBlank(message = "City is a required field.")
     @Size(min = 2, max = 50, message = "City should have 2-50 characters long")

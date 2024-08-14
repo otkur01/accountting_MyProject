@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +39,7 @@ public class DashboardServiceImpl implements DashboardService {
         List<InvoiceDto> invoiceDtoList = invoiceService.listAllByCompanyAndInvoiceType(companyDto, InvoiceType.PURCHASE, InvoiceStatus.APPROVED);
         totalCost = invoiceDtoList.stream().map(invoiceDto -> {
             List<InvoiceProductDto> invoiceProductDtoList = invoiceProductService.getAllByInvoiceId(invoiceDto.getId());
-           BigDecimal total = getTotalForInvoice(invoiceProductDtoList);
+           BigDecimal total = invoiceService.totalForInvoice(invoiceDto);
             return total;
 
         }).reduce(
@@ -56,9 +55,7 @@ public class DashboardServiceImpl implements DashboardService {
         CompanyDto companyDto = userService.findByUserName(username).getCompany();
         List<InvoiceDto> invoiceDtoList = invoiceService.listAllByCompanyAndInvoiceType(companyDto, InvoiceType.SALES, InvoiceStatus.APPROVED);
         totalSales = invoiceDtoList.stream().map(invoiceDto -> {
-            InvoiceProductDto invoiceProductDto = invoiceProductService.getById(invoiceDto.getId());
-            List<InvoiceProductDto> invoiceProductDtoList = invoiceProductService.getAllByInvoiceId(invoiceDto.getId());
-            BigDecimal total = getTotalForInvoice(invoiceProductDtoList);
+            BigDecimal total = invoiceService.totalForInvoice(invoiceDto);
             return total;
         }).reduce(
                 BigDecimal::add
@@ -69,19 +66,17 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public BigDecimal getProfitLoss() {
          BigDecimal profitLoss;
+
         String username = securityService.getLoggedInUser().getUsername();
         CompanyDto companyDto = userService.findByUserName(username).getCompany();
-        List<InvoiceDto> invoiceDtoList = invoiceService.listAllByCompanyAndInvoiceType(companyDto, InvoiceType.SALES, InvoiceStatus.APPROVED);
-        profitLoss = invoiceDtoList.stream().map(invoiceDto -> {
-            List<InvoiceProductDto> invoiceProductDtoList = invoiceProductService.getAllByInvoiceId(invoiceDto.getId());
+        List<InvoiceDto> invoiceDtoList = invoiceService.listAllByCompanyAndInvoiceType(companyDto,InvoiceType.SALES, InvoiceStatus.APPROVED);
+        profitLoss =  invoiceDtoList.stream().map(invoiceDto ->{
+           BigDecimal profit = invoiceProductService.getAllByInvoiceId(invoiceDto.getId())
+                    .stream().map(InvoiceProductDto::getProfitLoss).reduce(BigDecimal::add).orElseThrow();
+           return profit;
+        }).reduce(BigDecimal::add).get();
 
-            BigDecimal profitLossForEach =getProfitLossForInvoice(invoiceProductDtoList);
-
-            return profitLossForEach;
-        }).reduce(
-                BigDecimal::add
-        ).orElseThrow();
-        return profitLoss;
+       return profitLoss;
     }
 
 
@@ -147,6 +142,15 @@ public class DashboardServiceImpl implements DashboardService {
         exchangeRates.setJapaneseYen(currencyClient.getAllExchangeRate().getUsd().getJpy());
      return exchangeRates;
     }
-
+    public ExchangeRates exchangeForUsd1(){
+        CurrencyDto currencyDto = currencyClient.getAllExchangeRate();
+        ExchangeRates exchangeRates = new ExchangeRates();
+        exchangeRates.setEuro(currencyDto.getUsd().getEur());
+        exchangeRates.setBritishPound(currencyDto.getUsd().getGbp());
+        exchangeRates.setCanadianDollar(currencyDto.getUsd().getCad());
+        exchangeRates.setIndianRupee(currencyDto.getUsd().getInr());
+        exchangeRates.setJapaneseYen(currencyDto.getUsd().getJpy());
+        return exchangeRates;
+    }
 
 }

@@ -19,4 +19,6 @@ public interface CategoryService {
     CategoryDto update(CategoryDto categoryDto);
 
     void delete(Long id);
+
+    List<String> listOfCategoryDescription();
 }

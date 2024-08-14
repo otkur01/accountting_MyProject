@@ -1,10 +1,7 @@
 package com.cydeo.dto;
 
 import com.cydeo.enums.ProductUnit;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +12,7 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ProductDto {
 
     private Long id;
@@ -23,11 +21,14 @@ public class ProductDto {
     private String name;
 
     private Integer quantityInStock;
+
     @NotNull(message = "Low Limit Alert is a required field.")
     @Min(value = 1, message = "Low Limit Alert should be at least 1.")
     private Integer lowLimitAlert;
+
     @NotNull(message = "Product Unit is a required field")
     private ProductUnit productUnit;
+
     @NotNull(message = "Category is a required field.")
     private CategoryDto category;
 

@@ -2,6 +2,7 @@ package com.cydeo.service;
 
 import com.cydeo.dto.ClientVendorDto;
 import com.cydeo.dto.CompanyDto;
+import com.cydeo.enums.ClientVendorType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface ClientVendorService{
     ClientVendorDto getById(Long id);
 
     List<ClientVendorDto> getClienAndVendorByCompanyOrderedByType(CompanyDto company);
+    //List<ClientVendorDto> getClientAndVendorByCompany(CompanyDto company);
 
     ClientVendorDto save(ClientVendorDto clientVendorDto);
 
@@ -24,5 +26,9 @@ public interface ClientVendorService{
 
     void deleteClientVendor(Long id);
 
+    List<ClientVendorType> clientVendorTypeList();
+
     ClientVendorDto update(ClientVendorDto clientVendorDto);
+
+    List<ClientVendorDto> getClientAndVendorByCompanyAndTypeOrderedByName(CompanyDto company, ClientVendorType clientVendorType);
 }

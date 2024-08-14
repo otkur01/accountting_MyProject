@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -27,11 +29,13 @@ public class ClientVendorDto {
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "may be in any valid phone number format.")
     private String phone;
 
-    @Pattern(regexp = "^(https?://)?([a-zA-Z0-9.-]{+}).([a-zA-Z] {2,})(:[0-9])?(/[^/])*$", message = "Website should have a valid format")
+    @Pattern(regexp =  "^(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?$", message = "Website should have a valid format")
     private String website;
-    @NotBlank(message = "Please select type")
+
+    @NotNull(message = "Please select type")
     private ClientVendorType clientVendorType;
 
+    @Valid
     private AddressDto address;
 
     private CompanyDto company;

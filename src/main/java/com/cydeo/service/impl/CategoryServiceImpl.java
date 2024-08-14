@@ -97,6 +97,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    @Override
+    public List<String> listOfCategoryDescription() {
+        return getAllCategories().stream().map(CategoryDto::getDescription).collect(Collectors.toList());
+    }
+
     private boolean checkIfDescriptionExits(String description) {
         return getAllCategories().stream().map(CategoryDto::getDescription).collect(Collectors.toList()).contains(description);
 

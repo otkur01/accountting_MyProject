@@ -20,5 +20,6 @@ public interface DashboardService {
     List<InvoiceDto> last3ApprovedInvoiceByCompany();
 
     ExchangeRates exchangeForUsd();
+    ExchangeRates exchangeForUsd1();
 
 }

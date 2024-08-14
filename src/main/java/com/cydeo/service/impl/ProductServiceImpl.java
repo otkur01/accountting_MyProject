@@ -39,21 +39,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getAllProducts() {
-        Long LoggedUserId = securityService.getLoggedInUser().getId();
+        Long LoggedCompanyId = securityService.getLoggedInUser().getCompany().getId();
 
         return productRepository.findAllOrderByCategoryNameAscAndNameAsc().stream().
-                filter(product -> product.getInsertUserId()==LoggedUserId)
+                filter(product -> product.getCategory().getCompany().getId().equals(LoggedCompanyId))
                 .filter(product -> product.getIsDeleted().equals(false))
                 .map(product -> mapperUtil.convert(product, new ProductDto()))
                 .map(productDto ->{
-                    productDto.setHasInvoiceProduct(checkProductHasInvoice(productDto.getId()));
+                    productDto.setHasInvoiceProduct(!checkProductHasInvoice(productDto.getId()));
                     return productDto;
                 })
                 .collect(Collectors.toList());
     }
 
     private boolean checkProductHasInvoice(Long id) {
-         return (productRepository.findById(id).get().getQuantityInStock()>0) || invoiceProductService.getAllByProductId(id)==null;
+         return  invoiceProductService.getAllByProductId(id).isEmpty();
 
 
     }
@@ -61,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getAllProductByCategoryId(Long id) {
         return productRepository.findAllByCategoryId(id).stream()
-                .filter(product -> product.getCategory().getCompany().getId()==securityService.getLoggedInUser().getCompany().getId())
+                .filter(product -> product.getCategory().getId()==id)
                 .map(product -> mapperUtil.convert(product,new ProductDto()))
                 .collect(Collectors.toList());
     }
@@ -75,7 +75,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto save(ProductDto productDto) {
        Product product = mapperUtil.convert(productDto, new Product());
-       product.setInsertUserId(securityService.getLoggedInUser().getId());
       productRepository.save(product);
       return mapperUtil.convert(product, new ProductDto());
 
@@ -111,6 +110,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Long id) {
         Product product= productRepository.findById(id).get();
+        if (product.getQuantityInStock()>0)throw new RuntimeException("cant delete this product");
         product.setIsDeleted(true);
         productRepository.save(product);
     }

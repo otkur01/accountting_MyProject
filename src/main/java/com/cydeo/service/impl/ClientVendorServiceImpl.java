@@ -7,6 +7,7 @@ import com.cydeo.dto.InvoiceDto;
 import com.cydeo.entity.Address;
 import com.cydeo.entity.ClientVendor;
 import com.cydeo.entity.Company;
+import com.cydeo.enums.ClientVendorType;
 import com.cydeo.repository.ClientVendorRepository;
 import com.cydeo.service.AddressService;
 import com.cydeo.service.ClientVendorService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +57,8 @@ public class ClientVendorServiceImpl implements ClientVendorService {
         return mapperUtil.convert(clientVendorRepository.findById(id).get(), new ClientVendorDto());
     }
 
+
+
     @Override
     public List<ClientVendorDto> getClienAndVendorByCompanyOrderedByType(CompanyDto company) {
         return clientVendorRepository.findAllByCompanyOrderByClientVendorType(mapperUtil.convert(company, new Company()))
@@ -64,6 +68,18 @@ public class ClientVendorServiceImpl implements ClientVendorService {
                     clientVendorDto.setHasInvoice(checkHasInvoice(clientVendorDto.getId()));
                     return clientVendorDto;
                 })
+                .collect(Collectors.toList());
+    }
+
+//    @Override
+//    public List<ClientVendorDto> getClientAndVendorByCompany(CompanyDto company) {
+//        return null;
+//    }
+
+    @Override
+    public List<ClientVendorDto> getClientAndVendorByCompanyAndTypeOrderedByName(CompanyDto company, ClientVendorType clientVendorType) {
+        return clientVendorRepository.findAllByCompanyAndClientVendorTypeOrderByClientVendorName(mapperUtil.convert(company, new Company()), ClientVendorType.VENDOR)
+                .stream().map(clientVendor -> mapperUtil.convert(clientVendor, new ClientVendorDto()))
                 .collect(Collectors.toList());
     }
 
@@ -100,11 +116,21 @@ public class ClientVendorServiceImpl implements ClientVendorService {
     }
 
     @Override
+    public List<ClientVendorType> clientVendorTypeList() {
+        List<ClientVendorType>clientVendorTypes = new ArrayList<>();
+        clientVendorTypes.add(ClientVendorType.CLIENT);
+        clientVendorTypes.add(ClientVendorType.VENDOR);
+
+        return clientVendorTypes;
+    }
+
+    @Override
     public ClientVendorDto update(ClientVendorDto clientVendorDto) {
+
         ClientVendor clientVendor = mapperUtil.convert(clientVendorDto, new ClientVendor());
-        ClientVendor convertedClient = clientVendorRepository.findById(clientVendorDto.getId()).orElseThrow();
-        clientVendor.setInsertUserId(convertedClient.getInsertUserId());
-        clientVendor.setInsertDateTime(convertedClient.insertDateTime);
+       ClientVendor convertedClient = clientVendorRepository.findById(clientVendorDto.getId()).orElseThrow();
+//       clientVendor.setInsertUserId(convertedClient.getInsertUserId());
+//        clientVendor.setInsertDateTime(convertedClient.insertDateTime);
         clientVendor.setCompany(convertedClient.getCompany());
         clientVendorRepository.save(clientVendor);
 

@@ -93,13 +93,13 @@ values
 ('2024-04-15T00:00', 2, false, '2024-04-15T00:00', 2, 'VENDOR', 'Wordtune Tech', '+1 (652) 852-3246',
  'https://www.wordtune.com', 7, 2),
 -- COMPANY-3 / Blue Tech
-('2024-04-15T00:00', 3, false, '2024-04-15T00:00', 3, 'CLIENT', 'Reallinks Tech', '+1 (652) 852-9544',
+('2024-04-15T00:00', 6, false, '2024-04-15T00:00', 3, 'CLIENT', 'Reallinks Tech', '+1 (652) 852-9544',
  'https://www.reallinks.com', 3, 3),
-('2024-04-15T00:00', 3, false, '2024-04-15T00:00', 3, 'VENDOR', 'Livetube Tech', '+1 (652) 852-2055',
+('2024-04-15T00:00', 6, false, '2024-04-15T00:00', 3, 'VENDOR', 'Livetube Tech', '+1 (652) 852-2055',
  'https://www.livetube.com', 4, 3),
-('2024-04-15T00:00', 3, false, '2024-04-15T00:00', 3, 'CLIENT', 'Key Tech', '+1 (652) 852-7896',
+('2024-04-15T00:00', 6, false, '2024-04-15T00:00', 3, 'CLIENT', 'Key Tech', '+1 (652) 852-7896',
  'https://www.keytech.com', 1, 3),
-('2024-04-15T00:00', 3, false, '2024-04-15T00:00', 3, 'VENDOR', 'Mod Tech', '+1 (652) 852-3648',
+('2024-04-15T00:00', 6, false, '2024-04-15T00:00', 3, 'VENDOR', 'Mod Tech', '+1 (652) 852-3648',
  'https://www.modtech.com', 2, 3);
 
 
@@ -110,10 +110,10 @@ values
 ('2024-04-15 00:00:00', 2, false, '2024-04-15 00:00:00', 2, 'Computer', 2),
 ('2024-04-15 00:00:00', 2, false, '2024-04-15 00:00:00', 2, 'Phone', 2),
 -- COMPANY-3 / Blue Tech
-('2024-04-15 00:00:00', 3, false, '2024-04-15 00:00:00', 3, 'Phone', 3),
-('2024-04-15 00:00:00', 3, false, '2024-04-15 00:00:00', 3, 'TV', 3),
-('2024-04-15 00:00:00', 3, false, '2024-04-15 00:00:00', 3, 'Monitor', 3);
--- --
+('2024-04-15 00:00:00', 6, false, '2024-04-15 00:00:00', 3, 'Phone', 3),
+('2024-04-15 00:00:00', 6, false, '2024-04-15 00:00:00', 3, 'TV', 3),
+('2024-04-15 00:00:00', 6, false, '2024-04-15 00:00:00', 3, 'Monitor', 3);
+-- --A
 insert into products(insert_date_time, insert_user_id, is_deleted, last_update_date_time, last_update_user_id,
                      name, quantity_in_stock, low_limit_alert, product_unit, category_id)
 VALUES
@@ -123,9 +123,9 @@ VALUES
 ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 'Apple iPhone-13', 0, 5, 'PCS', 2),
 ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 'SAMSUNG Galaxy S22', 0, 5, 'PCS', 2),
 -- COMPANY-3 / Blue Tech
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 'Samsung Galaxy S20 (renewed)', 10, 5, 'PCS', 3),
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 'Samsung Galaxy S22', 20, 5, 'PCS', 3),
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 'Moto G Power', 0, 5, 'PCS', 3);
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 'Samsung Galaxy S20 (renewed)', 10, 5, 'PCS', 3),
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 'Samsung Galaxy S22', 20, 5, 'PCS', 3),
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 'Moto G Power', 0, 5, 'PCS', 3);
 
 
 insert into invoices(insert_date_time, insert_user_id, is_deleted, last_update_date_time, last_update_user_id,
@@ -139,14 +139,14 @@ values
 ('2024-05-20 00:00', 2, 'false', '2024-05-20 00:00', 2, '2024-05-20', 'S-003', 'SALES', 'AWAITING_APPROVAL', 1, 2),
 
 -- COMPANY-3 / Blue Tech
-('2024-04-09 00:00', 3, 'false', '2024-04-09 00:00', 3, '2024-04-09', 'P-001', 'PURCHASE', 'APPROVED', 5, 3),
-('2024-04-10 00:00', 3, 'false', '2024-04-10 00:00', 3, '2024-04-10', 'P-002', 'PURCHASE', 'APPROVED', 5, 3),
-('2024-04-13 00:00', 3, 'false', '2024-04-13 00:00', 3, '2024-04-13', 'S-001', 'SALES', 'APPROVED', 4, 3),
-('2024-05-18 00:00', 3, 'false', '2024-05-18 00:00', 3, '2024-05-18', 'S-002', 'SALES', 'AWAITING_APPROVAL', 4, 3),
-('2024-05-19 00:00', 3, 'false', '2024-05-19 00:00', 3, '2024-05-19', 'S-003', 'SALES', 'AWAITING_APPROVAL', 4, 3),
-('2024-05-20 00:00', 3, 'false', '2024-05-20 00:00', 3, '2024-05-20', 'S-004', 'SALES', 'AWAITING_APPROVAL', 6, 3),
-('2024-05-21 00:00', 3, 'false', '2024-05-21 00:00', 3, '2024-05-21', 'S-005', 'SALES', 'AWAITING_APPROVAL', 6, 3),
-('2024-06-08 00:00', 3, 'false', '2024-06-08 00:00', 3, '2024-06-08', 'P-003', 'PURCHASE', 'AWAITING_APPROVAL', 6, 3);
+('2024-04-09 00:00', 6, 'false', '2024-04-09 00:00', 3, '2024-04-09', 'P-001', 'PURCHASE', 'APPROVED', 5, 3),
+('2024-04-10 00:00', 6, 'false', '2024-04-10 00:00', 3, '2024-04-10', 'P-002', 'PURCHASE', 'APPROVED', 5, 3),
+('2024-04-13 00:00', 6, 'false', '2024-04-13 00:00', 3, '2024-04-13', 'S-001', 'SALES', 'APPROVED', 4, 3),
+('2024-05-18 00:00', 6, 'false', '2024-05-18 00:00', 3, '2024-05-18', 'S-002', 'SALES', 'AWAITING_APPROVAL', 4, 3),
+('2024-05-19 00:00', 6, 'false', '2024-05-19 00:00', 3, '2024-05-19', 'S-003', 'SALES', 'AWAITING_APPROVAL', 4, 3),
+('2024-05-20 00:00', 6, 'false', '2024-05-20 00:00', 3, '2024-05-20', 'S-004', 'SALES', 'AWAITING_APPROVAL', 6, 3),
+('2024-05-21 00:00', 6, 'false', '2024-05-21 00:00', 3, '2024-05-21', 'S-005', 'SALES', 'AWAITING_APPROVAL', 6, 3),
+('2024-06-08 00:00', 6, 'false', '2024-06-08 00:00', 3, '2024-06-08', 'P-003', 'PURCHASE', 'AWAITING_APPROVAL', 6, 3);
 
 insert into invoice_products(insert_date_time, insert_user_id, is_deleted, last_update_date_time, last_update_user_id,
                              price, quantity, remaining_quantity, tax, profit_loss, invoice_id, product_id)
@@ -159,13 +159,23 @@ values
 ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 300, 5, 0, 10, 0, 5, 1),   --sale AWAITING_APPROVAL after approval total sale (with tax) :2750 & profit (with tax) : 275
 
 -- COMPANY-3 / Blue Tech
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 200, 20, 0, 10, 0, 6, 5),  --purchase APPROVED
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 200, 20, 10, 10, 0, 6, 5), --purchase APPROVED
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 900, 10, 10, 10, 0, 7, 6), --purchase APPROVED
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 1000, 10, 10, 10, 0, 7, 6), --purchase APPROVED  total cost (with tax) 29700
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 300, 10, 0, 10, 1100, 8, 5),--sale APPROVED     total sale (with tax) 3300 & profit : 1100 with tax
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 300, 20, 0, 10, 2200, 8, 5), --sale APPROVED     total sale (with tax): 9900 & total profit : 3300 with tax
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 1200, 6, 0, 10, 0, 9, 6),  --sale AWAITING_APPROVAL after approval total sale (with tax) : 17820 & profit (with tax) : 3300+1980=5280
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 1200, 5, 0, 10, 0, 10, 6), --sale AWAITING_APPROVAL after approval total sale (with tax) : 24420 & profit (with tax) : 5280+1540=6820
-('2024-04-15 00:00', 3, 'false', '2024-04-15 00:00', 3, 1200, 2, 0, 10, 0, 11, 6), --sale AWAITING_APPROVAL after approval total sale (with tax) : 27060 & profit (with tax) : 6820+440=7260
-('2024-06-15 00:00', 3, 'false', '2024-06-15 00:00', 3, 600, 4, 0, 10, 0, 13, 7);  --purchase AWAITING_APPROVAL
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 200, 20, 0, 10, 0, 6, 5),  --purchase APPROVED
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 200, 20, 10, 10, 0, 6, 5), --purchase APPROVED
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 900, 10, 10, 10, 0, 7, 6), --purchase APPROVED
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 1000, 10, 10, 10, 0, 7, 6), --purchase APPROVED  total cost (with tax) 29700
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 300, 10, 0, 10, 1100, 8, 5),--sale APPROVED     total sale (with tax) 3300 & profit : 1100 with tax
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 300, 20, 0, 10, 2200, 8, 5), --sale APPROVED     total sale (with tax): 9900 & total profit : 3300 with tax
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 1200, 6, 0, 10, 0, 9, 6),  --sale AWAITING_APPROVAL after approval total sale (with tax) : 17820 & profit (with tax) : 3300+1980=5280
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 1200, 5, 0, 10, 0, 10, 6), --sale AWAITING_APPROVAL after approval total sale (with tax) : 24420 & profit (with tax) : 5280+1540=6820
+('2024-04-15 00:00', 6, 'false', '2024-04-15 00:00', 3, 1200, 2, 0, 10, 0, 11, 6), --sale AWAITING_APPROVAL after approval total sale (with tax) : 27060 & profit (with tax) : 6820+440=7260
+('2024-06-15 00:00', 6, 'false', '2024-06-15 00:00', 3, 600, 4, 0, 10, 0, 13, 7);  --purchase AWAITING_APPROVAL
+
+
+insert into payments(insert_date_time, insert_user_id, is_deleted, last_update_date_time, last_update_user_id,
+                     year, amount, payment_date, is_paid, month, company_id)
+values
+    ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 2024, 250, '2024-12-15', false, 'DECEMBER', 2),
+    ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 2024, 250, '2024-05-15', false, 'MAY', 2),
+    ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 2023, 250, '2023-11-15', false, 'NOVEMBER', 2),
+    ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 2022, 250, '2022-10-15', true, 'OCTOBER', 2),
+    ('2024-04-15 00:00', 2, 'false', '2024-04-15 00:00', 2, 2021, 250, '2021-09-15', false,  'SEPTEMBER',2)
